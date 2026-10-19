@@ -16,7 +16,8 @@ window.OMEGAUP_BENEVITY = {
   examples: [
     { company: "Microsoft", url: "https://microsoft.benevity.org/cause/840-813404168" },
     { company: "Netflix",   url: "https://netflixemployeegiving.benevity.org/cause/840-813404168" },
-    { company: "Google",    url: "https://google.benevity.org/cause/840-813404168" }
+    { company: "Google",    url: "https://google.benevity.org/cause/840-813404168" },
+    { company: "ByteDance / TikTok", url: "https://bytedance.benevity.org/cause/840-813404168" }
   ]
 };
 
