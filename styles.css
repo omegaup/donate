@@ -48,3 +48,10 @@ button.link[aria-expanded="true"]:hover + .panel{border-color:#8daeea}
 /* Hover sobre el panel: resalta también el botón anterior (navegadores con :has) */
 .panel:hover{border-color:#8daeea}
 button.link[aria-expanded="true"]:has(+ .panel:hover){border-color:#8daeea;border-bottom-color:transparent}
+
+/* Correo en el footer */
+footer{text-align:center}
+.footer-mail{color:#3869c1;text-decoration:none;font-weight:600}
+.footer-mail:hover{text-decoration:underline}
+.footer-mail:focus-visible{outline:3px solid #5588dd;outline-offset:2px;border-radius:3px}
+.footer-dot{margin:0 7px;color:#c2ccda}
