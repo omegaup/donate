@@ -22,47 +22,51 @@
 </head>
 <body>
   <main class="page">
+    <div class="lang-switch" role="group" aria-label="Language / Idioma">
+      <button type="button" class="lang-btn" data-lang="es">ES</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
     <div class="brand">
       <div class="logo-wrap">
         <img src="assets/logo.svg" alt="omegaUp" class="logo" width="204" height="204">
       </div>
-      <h1>Donaciones</h1>
-      <p>Elige tu forma de apoyar</p>
+      <h1 data-i18n="title">Donaciones</h1>
+      <p data-i18n="subtitle">Elige tu forma de apoyar</p>
     </div>
     <nav class="links" aria-label="Opciones para donar">
-      <a class="link" data-method="stripe" hidden>
-        <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.8"/></svg></span>
-        <span class="button-copy"><strong>Tarjeta de crédito o débito</strong><small>Stripe</small></span>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
       <a class="link" data-method="paypal" hidden>
         <span class="button-icon paypal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 3h7c4 0 5 3 4 6-.7 3.2-3.1 4.8-6.5 4.8h-3L8 21H4.5L8 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 8h4c3 0 4.3 1.7 3.6 4.3-.7 2.5-2.2 3.7-5.6 3.7h-2.5" stroke="currentColor" stroke-width="1.5"/></svg></span>
-        <span class="button-copy"><strong>Donar con PayPal</strong><small>PayPal</small></span>
+        <span class="button-copy"><strong data-i18n="paypalTitle">Donar con PayPal</strong><small data-i18n="paypalSub">PayPal · Único o mensual</small></span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link" data-method="stripe" hidden>
+        <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.8"/></svg></span>
+        <span class="button-copy"><strong data-i18n="stripeTitle">Tarjeta de crédito o débito</strong><small data-i18n="stripeSub">Stripe</small></span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
 
       <button type="button" class="link" id="benevityToggle" aria-expanded="false" aria-controls="benevityPanel" hidden>
         <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 8c0 5-8 11-8 11S4 13 4 8a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 11.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-        <span class="button-copy"><strong>Donar con tu empresa</strong><small>Benevity · Matching</small></span>
+        <span class="button-copy"><strong data-i18n="benevityTitle">Donar con tu empresa</strong><small data-i18n="benevitySub">Benevity · Matching</small></span>
         <span class="arrow chevron" aria-hidden="true">⌄</span>
       </button>
       <div class="panel" id="benevityPanel" role="region" aria-label="Donación con matching de empresa" hidden>
-        <p>Si tu empresa tiene programa de <strong>matching</strong>, puede duplicar tu aportación. Busca <strong>“omegaUp”</strong> en el portal de donaciones de tu empresa.</p>
-        <p class="panel-note">Ejemplos (cada enlace funciona solo para empleados de esa empresa):</p>
+        <p data-i18n="benevityBody">Si tu empresa tiene programa de <strong>matching</strong>, puede duplicar tu aportación. Busca <strong>“omegaUp”</strong> en el portal de donaciones de tu empresa.</p>
+        <p class="panel-note" data-i18n="benevityNote">Ejemplos (cada enlace funciona solo para empleados de esa empresa):</p>
         <div class="panel-links" id="benevityLinks"></div>
       </div>
 
       <button type="button" class="link" id="bankToggle" aria-expanded="false" aria-controls="bankPanel" hidden>
         <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m3 9 9-5 9 5M4 10h16M6 10v8m4-8v8m4-8v8m4-8v8M3 20h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="button-copy"><strong>Transferencia bancaria</strong><small>Depósito directo · MXN</small></span>
+        <span class="button-copy"><strong data-i18n="bankTitle">Transferencia bancaria</strong><small data-i18n="bankSub">Depósito directo · MXN</small></span>
         <span class="arrow chevron" aria-hidden="true">⌄</span>
       </button>
       <div class="panel" id="bankPanel" role="region" aria-label="Datos para transferencia bancaria" hidden>
         <div class="bank-rows" id="bankRows"></div>
-        <p class="panel-note">Toca cualquier dato para copiarlo.</p>
+        <p class="panel-note" data-i18n="bankCopyNote">Toca cualquier dato para copiarlo.</p>
       </div>
     </nav>
-    <p class="availability" id="availability" hidden>Próximamente estarán disponibles los enlaces de donación.</p>
+    <p class="availability" id="availability" data-i18n="soon" hidden>Próximamente estarán disponibles los enlaces de donación.</p>
     <footer>donate.omegaup.org</footer>
   </main>
 </body>
