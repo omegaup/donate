@@ -1,1 +1,28 @@
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17253d;background:#f5f8ff;font-synthesis:none;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse 70% 30% at 50% 4%,#dfeaff 0,transparent 95%),#f5f8ff}.page{width:min(100% - 36px,440px);min-height:100svh;margin:auto;padding:clamp(48px,9vh,100px) 0 26px;display:flex;flex-direction:column;align-items:center}.brand{text-align:center;width:100%;margin-bottom:33px}.logo-wrap{width:116px;height:116px;margin:0 auto 14px;border-radius:34px;background:white;box-shadow:0 12px 38px #3b72bc17;display:grid;place-items:center}.logo{width:106px;height:106px;object-fit:contain}.brand h1{font-size:25px;line-height:1.2;letter-spacing:-.8px;font-weight:760;margin:0 0 8px}.brand p{color:#64728c;font-size:14px;margin:0}.links{width:100%;display:grid;gap:14px}.link{color:#17253d;text-decoration:none;background:#fff;min-height:82px;border:1px solid #e4eaf4;border-radius:19px;box-shadow:0 5px 14px #263f6820;display:flex;align-items:center;gap:15px;padding:15px 17px;transition:transform .18s,box-shadow .18s,border-color .18s}.link[hidden]{display:none}.link:hover{transform:translateY(-3px);border-color:#8daeea;box-shadow:0 12px 24px #335ba528}.link:focus-visible{outline:3px solid #5588dd;outline-offset:4px}.button-icon{background:#edf3ff;color:#3869c1;width:49px;height:49px;border-radius:14px;flex:0 0 49px;display:grid;place-items:center}.button-icon svg{width:25px;height:25px}.button-icon.paypal{color:#1c5aab}.button-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}.button-copy strong{font-size:15px;font-weight:700;letter-spacing:-.2px}.button-copy small{font-size:12px;color:#69778d}.arrow{color:#91a2bb;font-size:23px;line-height:1}footer{margin-top:auto;padding-top:52px;font-size:12px;color:#8c9bb0;letter-spacing:.2px}.availability{text-align:center;font-size:13px;color:#75839c;margin-top:20px;line-height:1.6}@media(max-width:370px){.page{width:calc(100% - 26px)}.link{padding:13px 12px;gap:11px}.button-copy strong{font-size:14px}}@media(prefers-reduced-motion:reduce){.link{transition:none}}
+
+/* Botones que abren panel (Benevity, banco) */
+button.link{width:100%;font-family:inherit;text-align:left;cursor:pointer}
+.chevron{transition:transform .2s}
+button.link[aria-expanded="true"] .chevron{transform:rotate(180deg)}
+/* Paneles desplegables */
+.panel{background:#fff;border:1px solid #e4eaf4;border-top:0;border-radius:0 0 19px 19px;margin-top:-16px;padding:20px 18px 18px;box-shadow:0 5px 14px #263f6814;animation:panelIn .18s ease}
+.panel[hidden]{display:none}
+@keyframes panelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.panel p{margin:0 0 12px;font-size:13.5px;color:#4a596f;line-height:1.5}
+.panel p:last-child{margin-bottom:0}
+.panel-note{font-size:12px;color:#75839c}
+.panel-links{display:flex;flex-wrap:wrap;gap:8px}
+.panel-link{flex:1 1 auto;text-align:center;text-decoration:none;font-size:13px;font-weight:600;color:#3869c1;background:#edf3ff;border-radius:11px;padding:10px 12px;transition:background .15s}
+.panel-link:hover{background:#dfeaff}
+.panel-link:focus-visible{outline:3px solid #5588dd;outline-offset:2px}
+/* Filas de datos bancarios */
+.bank-rows{display:grid;gap:9px;margin-bottom:12px}
+.bank-row{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#f7faff;border:1px solid #e9eff8;border-radius:12px;padding:10px 12px;font-family:inherit}
+.bank-row.copyable{cursor:pointer;transition:border-color .15s,background .15s}
+.bank-row.copyable:hover{border-color:#8daeea;background:#eff5ff}
+.bank-row.copyable:focus-visible{outline:3px solid #5588dd;outline-offset:2px}
+.bank-row.copied{border-color:#4caf7d;background:#eafaf1}
+.bank-label{font-size:11.5px;color:#75839c;flex:0 0 auto;min-width:92px}
+.bank-value{font-size:14px;font-weight:600;color:#17253d;letter-spacing:.3px;flex:1;word-break:break-all}
+.bank-copy{font-size:11px;font-weight:700;color:#3869c1;flex:0 0 auto}
+.bank-row.copied .bank-copy{color:#2e9e68}
