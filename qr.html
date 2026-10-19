@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>QR · Donar a omegaUp</title>
+  <style>
+    :root { font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; color: #17253d; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #f5f8ff; display: grid; place-items: center; padding: 32px 18px; }
+    .card { width: min(100%, 420px); background: #fff; border: 1px solid #e4eaf4; border-radius: 22px; box-shadow: 0 12px 38px #3b72bc1a; padding: 26px 24px 28px; text-align: center; }
+    h1 { font-size: 20px; letter-spacing: -.5px; margin: 0 0 4px; }
+    p { color: #64728c; font-size: 13.5px; margin: 0 0 20px; }
+    .qr-box { background: #fff; border: 1px solid #eef2fa; border-radius: 16px; padding: 14px; display: grid; place-items: center; position: relative; }
+    .qr-box svg { width: 100%; height: auto; max-width: 320px; display: block; }
+    .qr-logo { position: absolute; width: 20%; height: 20%; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #fff; border-radius: 10px; padding: 6px; box-shadow: 0 0 0 5px #fff; }
+    .qr-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .url { margin: 16px 0 20px; font-size: 13px; color: #3869c1; word-break: break-all; }
+    .controls { display: grid; gap: 14px; }
+    label { font-size: 12px; color: #69778d; text-align: left; display: block; margin-bottom: 4px; }
+    input[type="text"] { width: 100%; padding: 10px 12px; border: 1px solid #d8e1f0; border-radius: 11px; font-size: 13px; color: #17253d; }
+    .toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #17253d; justify-content: center; }
+    .btns { display: flex; gap: 10px; }
+    button { flex: 1; cursor: pointer; border: 0; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 600; background: #3869c1; color: #fff; transition: background .15s; }
+    button.secondary { background: #edf3ff; color: #3869c1; }
+    button:hover { background: #2d579f; }
+    button.secondary:hover { background: #dfeaff; }
+    .hint { font-size: 11.5px; color: #8c9bb0; margin-top: 16px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Código QR de donaciones</h1>
+    <p>Escanéalo para comprobar que abre el sitio, luego descárgalo para imprimir o compartir.</p>
+    <div class="qr-box" id="qrBox"></div>
+    <div class="url" id="urlLabel"></div>
+    <div class="controls">
+      <div>
+        <label for="urlInput">URL de destino</label>
+        <input type="text" id="urlInput" value="https://omegaup.github.io/donate/">
+      </div>
+      <label class="toggle"><input type="checkbox" id="logoToggle" checked> Incluir logo de omegaUp al centro</label>
+      <div class="btns">
+        <button id="svgBtn">Descargar SVG</button>
+        <button id="pngBtn" class="secondary">Descargar PNG</button>
+      </div>
+    </div>
+    <p class="hint">El SVG es vectorial (nítido a cualquier tamaño, ideal para imprenta). El PNG sirve para slides, correo o chat. Verifica siempre que el QR abra el sitio correcto antes de distribuirlo.</p>
+  </div>
+
+  <script src="assets/qrcode.js"></script>
+  <script>
+    const qrBox = document.getElementById('qrBox');
+    const urlInput = document.getElementById('urlInput');
+    const urlLabel = document.getElementById('urlLabel');
+    const logoToggle = document.getElementById('logoToggle');
+
+    let logoDataUri = null;
+    let currentSVG = '';
+
+    const CELL = 16;      // px por módulo
+    const MARGIN = 4;     // módulos de zona de silencio
+
+    // Nivel H: hasta 30% de recuperación, necesario al poner un logo encima.
+    function makeMatrix(text) {
+      const qr = qrcode(0, 'H'); // 0 = selección automática de versión
+      qr.addData(text, 'Byte');
+      qr.make();
+      return qr;
+    }
+
+    function buildSVG(qr, withLogo) {
+      const count = qr.getModuleCount();
+      const dim = (count + MARGIN * 2) * CELL;
+      let path = '';
+      for (let r = 0; r < count; r++) {
+        for (let c = 0; c < count; c++) {
+          if (qr.isDark(r, c)) {
+            const x = (c + MARGIN) * CELL;
+            const y = (r + MARGIN) * CELL;
+            path += `M${x},${y}h${CELL}v${CELL}h-${CELL}z`;
+          }
+        }
+      }
+      let logo = '';
+      if (withLogo && logoDataUri) {
+        const ls = dim * 0.2;
+        const lp = ls * 0.14;
+        const lx = (dim - ls) / 2;
+        logo =
+          `<rect x="${(lx - lp).toFixed(1)}" y="${(lx - lp).toFixed(1)}" width="${(ls + lp * 2).toFixed(1)}" height="${(ls + lp * 2).toFixed(1)}" rx="${(ls * 0.18).toFixed(1)}" fill="#ffffff"/>` +
+          `<image href="${logoDataUri}" x="${lx.toFixed(1)}" y="${lx.toFixed(1)}" width="${ls.toFixed(1)}" height="${ls.toFixed(1)}"/>`;
+      }
+      return `<svg xmlns="http://www.w3.org/2000/svg" width="${dim}" height="${dim}" viewBox="0 0 ${dim} ${dim}" role="img" aria-label="Código QR para donar a omegaUp">` +
+        `<rect width="${dim}" height="${dim}" fill="#ffffff"/>` +
+        `<path d="${path}" fill="#000000"/>` +
+        logo +
+        `</svg>`;
+    }
+
+    async function loadLogo() {
+      try {
+        const res = await fetch('assets/logo-square.svg');
+        if (!res.ok) return;
+        const text = await res.text();
+        logoDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(text)));
+      } catch { /* sin logo si no se puede cargar */ }
+    }
+
+    function render() {
+      const url = urlInput.value.trim();
+      urlLabel.textContent = url;
+      if (!url) { qrBox.innerHTML = ''; return; }
+      const qr = makeMatrix(url);
+      currentSVG = buildSVG(qr, logoToggle.checked);
+      qrBox.innerHTML = currentSVG;
+    }
+
+    function download(filename, blob) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+
+    document.getElementById('svgBtn').addEventListener('click', () => {
+      download('omegaup-donate-qr.svg', new Blob([currentSVG], { type: 'image/svg+xml' }));
+    });
+
+    document.getElementById('pngBtn').addEventListener('click', () => {
+      const img = new Image();
+      const svgBlob = new Blob([currentSVG], { type: 'image/svg+xml' });
+      const svgUrl = URL.createObjectURL(svgBlob);
+      img.onload = () => {
+        const scale = 2;
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((blob) => download('omegaup-donate-qr.png', blob), 'image/png');
+        URL.revokeObjectURL(svgUrl);
+      };
+      img.src = svgUrl;
+    });
+
+    urlInput.addEventListener('input', render);
+    logoToggle.addEventListener('change', render);
+
+    loadLogo().then(render);
+  </script>
+</body>
+</html>
