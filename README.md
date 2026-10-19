@@ -1,7 +1,8 @@
 # omegaUp · Donation links
 
 Sitio tipo Linktree, estático y minimalista, para centralizar las formas de donar a omegaUp.
-URL de destino prevista: `https://omegaup.github.io/donate/` (cuando esté listo el dominio propio, migrar a `https://donate.omegaup.org`).
+URL de destino: `https://donate.omegaup.org` (dominio propio de la non-profit, servido por GitHub Pages).
+El archivo `CNAME` en la raíz del repositorio fija ese dominio para GitHub Pages.
 
 ## Archivos
 
