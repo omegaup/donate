@@ -33,3 +33,7 @@ button.link[aria-expanded="true"] .chevron{transform:rotate(180deg)}
 .lang-btn:hover{color:#3869c1}
 .lang-btn.active{background:#3869c1;color:#fff}
 .lang-btn:focus-visible{outline:3px solid #5588dd;outline-offset:2px}
+
+/* Nota fiscal (501c3) */
+.tax-note{text-align:center;font-size:12px;color:#8696ad;line-height:1.55;margin:auto auto 0;padding-top:40px;max-width:340px}
+footer{margin-top:0;padding-top:16px}
