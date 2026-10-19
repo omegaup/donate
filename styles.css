@@ -41,3 +41,10 @@ footer{margin-top:0;padding-top:16px}
 /* Unir botón y panel sin muescas al estar expandido */
 button.link[aria-expanded="true"]{border-radius:19px 19px 0 0;border-bottom-color:transparent}
 button.link[aria-expanded="true"]:hover{transform:none;box-shadow:0 5px 14px #263f6820}
+/* Al pasar el mouse sobre el conjunto expandido, el borde azul rodea todo.
+   El borde inferior del botón queda transparente para que el contorno sea continuo. */
+button.link[aria-expanded="true"]:hover{border-color:#8daeea;border-bottom-color:transparent}
+button.link[aria-expanded="true"]:hover + .panel{border-color:#8daeea}
+/* Hover sobre el panel: resalta también el botón anterior (navegadores con :has) */
+.panel:hover{border-color:#8daeea}
+button.link[aria-expanded="true"]:has(+ .panel:hover){border-color:#8daeea;border-bottom-color:transparent}
