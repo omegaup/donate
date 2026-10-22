@@ -9,6 +9,12 @@ window.OMEGAUP_DONATION_LINKS = {
   paypal: "https://www.paypal.com/donate/?hosted_button_id=JCP586PA5UQGW"
 };
 
+// Formulario de donación de Keela (one-time y mensual, montos sugeridos).
+// Se incrusta como iframe dentro de un panel desplegable. Vacío = oculto.
+window.OMEGAUP_KEELA = {
+  embedUrl: "https://give-usa.keela.co/embed/SSHw3HJcbjJHRFM2d"
+};
+
 // Matching corporativo (Benevity). El ID de la causa omegaUp es el mismo para todas
 // las empresas; cada empleado usa el portal de SU empresa. Agrega o quita ejemplos aquí.
 window.OMEGAUP_BENEVITY = {

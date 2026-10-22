@@ -45,6 +45,15 @@
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
 
+      <button type="button" class="link" id="keelaToggle" aria-expanded="false" aria-controls="keelaPanel" hidden>
+        <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <span class="button-copy"><strong data-i18n="keelaTitle">Formulario de donación</strong><small data-i18n="keelaSub">Único o mensual · Montos sugeridos</small></span>
+        <span class="arrow chevron" aria-hidden="true">⌄</span>
+      </button>
+      <div class="panel" id="keelaPanel" role="region" aria-label="Formulario de donación" hidden>
+        <div class="keela-embed" id="keelaEmbed"></div>
+      </div>
+
       <button type="button" class="link" id="benevityToggle" aria-expanded="false" aria-controls="benevityPanel" hidden>
         <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 8c0 5-8 11-8 11S4 13 4 8a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 11.5h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
         <span class="button-copy"><strong data-i18n="benevityTitle">Donar con tu empresa</strong><small data-i18n="benevitySub">Benevity · Matching</small></span>

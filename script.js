@@ -16,6 +16,8 @@
       paypalSub: 'PayPal · Único o mensual',
       stripeTitle: 'Tarjeta o pago digital',
       stripeSub: 'Stripe · Apple Pay, ACH Transfer y más',
+      keelaTitle: 'Formulario de donación',
+      keelaSub: 'Único o mensual · Montos sugeridos',
       benevityTitle: 'Donar con tu empresa',
       benevitySub: 'Benevity · Matching',
       benevityBody: 'Si tu empresa tiene programa de <strong>matching</strong>, puede duplicar tu aportación. Busca <strong>“omegaUp”</strong> en el portal de donaciones de tu empresa.',
@@ -43,6 +45,8 @@
       paypalSub: 'PayPal · One-time or monthly',
       stripeTitle: 'Card or digital wallet',
       stripeSub: 'Stripe · Apple Pay, ACH Transfer & more',
+      keelaTitle: 'Donation form',
+      keelaSub: 'One-time or monthly · Suggested amounts',
       benevityTitle: 'Donate through your company',
       benevitySub: 'Benevity · Matching',
       benevityBody: 'If your company has a <strong>matching</strong> program, it can double your gift. Search for <strong>“omegaUp”</strong> in your company’s giving portal.',
@@ -147,6 +151,42 @@
       toggle.setAttribute('aria-expanded', String(!open));
       panel.hidden = open;
     });
+  }
+
+  // Keela: formulario incrustado (iframe), cargado solo al abrir el panel
+  const keela = window.OMEGAUP_KEELA;
+  if (keela && typeof keela.embedUrl === 'string') {
+    let keelaUrl = null;
+    try {
+      const u = new URL(keela.embedUrl.trim());
+      if (u.protocol === 'https:') keelaUrl = u.href;
+    } catch { /* URL inválida: no mostrar */ }
+
+    if (keelaUrl) {
+      const toggle = document.getElementById('keelaToggle');
+      const panel = document.getElementById('keelaPanel');
+      const mount = document.getElementById('keelaEmbed');
+      if (toggle && panel && mount) {
+        toggle.hidden = false;
+        let loaded = false;
+        toggle.addEventListener('click', () => {
+          const open = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!open));
+          panel.hidden = open;
+          if (!open && !loaded) {
+            const iframe = document.createElement('iframe');
+            iframe.src = keelaUrl;
+            iframe.title = 'Keela donation form';
+            iframe.loading = 'lazy';
+            iframe.className = 'keela-iframe';
+            iframe.setAttribute('allow', 'payment');
+            mount.appendChild(iframe);
+            loaded = true;
+          }
+        });
+        active++;
+      }
+    }
   }
 
   // Benevity
